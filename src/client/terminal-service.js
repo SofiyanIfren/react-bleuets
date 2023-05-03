@@ -46,6 +46,15 @@ export function connectReaderHandler(discoveredReaders) { // Handler for a "Conn
     }));
 }
 
+export function disconnectReaderHandler() {
+    terminal.then(t => t.disconnectReader().then(function(connectResult) {
+        if (connectResult.error) { console.log('Failed to disconnect: ', connectResult.error); }
+        else {
+            console.log('Readers disconnected');
+        }
+    }));
+}
+
 export function fetchPaymentIntentClientSecret(amount) {
     const bodyContent = JSON.stringify({ amount: amount });
     return fetch('http://localhost:4242/create_payment_intent', {
